@@ -1,16 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.clashofclansripoff.MainController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
-</VBox>
+
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="444.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.clashofclansripoff.controller.MainController">
+   <children>
+      <ImageView fx:id="bkg" fitHeight="444.0" fitWidth="909.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@CoC.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="signup_btn" layoutX="342.0" layoutY="131.0" mnemonicParsing="false" onMouseClicked="#signup_event" prefHeight="35.0" prefWidth="169.0" text="Signup">
+         <font>
+            <Font name="Arial Black" size="16.0" />
+         </font>
+      </Button>
+      <Button layoutX="341.0" layoutY="204.0" mnemonicParsing="false" onAction="#login_btn" onMouseClicked="#login_event" prefHeight="26.0" prefWidth="170.0" text="Login">
+         <font>
+            <Font name="Arial Black" size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="exit_btn" layoutX="341.0" layoutY="276.0" mnemonicParsing="false" onMouseClicked="#exit_event" prefHeight="26.0" prefWidth="170.0" text="Exit">
+         <font>
+            <Font name="Arial Black" size="16.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
