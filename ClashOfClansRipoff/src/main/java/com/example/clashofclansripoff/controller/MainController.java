@@ -26,6 +26,8 @@ public class MainController {
 
     @FXML
     private Button signup_btn;
+    @FXML
+    private Button login_btn;
 
     @FXML
     void exit_event(MouseEvent event) {
@@ -33,24 +35,20 @@ public class MainController {
     }
 
     @FXML
-    void login_btn(ActionEvent event) {
+    void login_event(MouseEvent event) throws IOException {
 
     }
 
     @FXML
-    void login_event(MouseEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("map-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 899, 679);
+    void signup_event(MouseEvent event) throws IOException{
+        ((Stage)signup_btn.getScene().getWindow()).close();
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("signup-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 900, 444);
         Stage stage = new Stage();
         stage.setResizable(false);
         stage.setTitle("Clash of Clans");
         stage.getIcons().add(new Image(Main.class.getResourceAsStream("icon.png")));
         stage.setScene(scene);
         stage.show();
-    }
-
-    @FXML
-    void signup_event(MouseEvent event) {
-
     }
 }

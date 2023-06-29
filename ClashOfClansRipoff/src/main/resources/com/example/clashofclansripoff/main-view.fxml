@@ -19,7 +19,7 @@
             <Font name="Arial Black" size="16.0" />
          </font>
       </Button>
-      <Button layoutX="341.0" layoutY="204.0" mnemonicParsing="false" onAction="#login_btn" onMouseClicked="#login_event" prefHeight="26.0" prefWidth="170.0" text="Login">
+      <Button fx:id="login_btn" layoutX="341.0" layoutY="204.0" mnemonicParsing="false" onMouseClicked="#login_event" prefHeight="26.0" prefWidth="170.0" text="Login">
          <font>
             <Font name="Arial Black" size="16.0" />
          </font>
