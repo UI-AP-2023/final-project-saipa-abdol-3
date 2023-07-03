@@ -2,8 +2,9 @@ package com.example.clashofclansripoff.model;
 
 import javafx.scene.image.ImageView;
 
-public class Troop {
+public abstract class Troop {
     private int health;
+    private int currentHP;
     private int dps;
     private int range;
     private Type type;
@@ -37,6 +38,10 @@ public class Troop {
     public void setView(ImageView view){
         this.view=view;
     }
+    public void move(){
+        view.setX(x);
+        view.setY(y);
+    }
     public void changeX(int change){
         x+=change;
         view.setX(x);
@@ -45,6 +50,18 @@ public class Troop {
         y+=change;
         view.setY(y);
     }
+
+    public void changeCurrentHP(int change) {
+        currentHP+=change;
+    }
+    public void doDamage(Building building){
+        building.changeCurrentHealth(dps);
+    }
+
+    public int getCurrentHP() {
+        return currentHP;
+    }
+
     public void setRange(int range){
         this.range=range;
     }
@@ -56,5 +73,6 @@ public class Troop {
         this.view=view;
         this.x=x;
         this.y=y;
+        currentHP=health;
     }
 }

@@ -79,8 +79,8 @@ public class DatabaseController {
     public static void addPlayer(Player player) throws Exception{
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection connection = DriverManager.getConnection(url, username, password);
-        String command = String.format("INSERT INTO players (username, password, email,age,level,victories,buildings) VALUES ('%s','%s','%s','%d','%d','%d','%d')",
-                player.getUsername(), player.getPassword(), player.getEmail(),player.getAge(),player.getPlayerLevel(),player.getVictories(),player.getBuildingCount());
+        String command = String.format("INSERT INTO players (username, password, email,age,level,victories,losses,buildings) VALUES ('%s','%s','%s','%d','%d','%d','%d','%d')",
+                player.getUsername(), player.getPassword(), player.getEmail(),player.getAge(),player.getPlayerLevel(),player.getVictories(),player.getLosses(),player.getBuildingCount());
         Statement statement = connection.prepareStatement(command);
         statement.execute(command);
         connection.close();

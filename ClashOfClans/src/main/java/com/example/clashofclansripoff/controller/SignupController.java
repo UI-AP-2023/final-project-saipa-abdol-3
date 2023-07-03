@@ -39,8 +39,16 @@ public class SignupController {
     }
 
     @FXML
-    void exit(MouseEvent event) {
-
+    void exit(MouseEvent event) throws Exception{
+        ((Stage)pass_field.getScene().getWindow()).close();
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("menu-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 900, 444);
+        Stage stage=new Stage();
+        stage.setResizable(false);
+        stage.setTitle("Clash of Clans");
+        stage.getIcons().add(new Image(Main.class.getResourceAsStream("icon.png")));
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML

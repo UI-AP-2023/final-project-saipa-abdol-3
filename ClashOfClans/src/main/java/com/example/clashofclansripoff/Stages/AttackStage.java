@@ -1,8 +1,8 @@
 package com.example.clashofclansripoff.Stages;
 
 import com.example.clashofclansripoff.Main;
-import com.example.clashofclansripoff.model.Building;
-import com.example.clashofclansripoff.model.Player;
+import com.example.clashofclansripoff.controller.TroopThread;
+import com.example.clashofclansripoff.model.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -11,11 +11,17 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 public class AttackStage {
     private static Stage stage;
+    private static AnchorPane root;
+    private static ArrayList<TroopThread> threads;
     public static Stage getAttackStage()throws Exception{
+        threads=new ArrayList<>();
         stage=new Stage();
-        AnchorPane root=new AnchorPane();
+        root=new AnchorPane();
         ImageView background=new ImageView(new Image(Main.class.getResourceAsStream("thumb.jpg")));
         background.setFitHeight(679);
         background.setFitWidth(923);
@@ -23,8 +29,9 @@ public class AttackStage {
         Scene scene=new Scene(root,899,679);
         stage.setResizable(false);
         stage.setTitle("Clash of Clans");
+        Player player=new Player();
         stage.getIcons().add(new Image(Main.class.getResourceAsStream("icon.png")));
-        for(Building building: (new Player()).getMap().getBuildings()){
+        for(Building building:player.getMap().getBuildings()){
             root.getChildren().add(building.getView());
         }
 
@@ -69,36 +76,111 @@ public class AttackStage {
             }
         });
 
-        ImageView archerImage=new ImageView(new Image(Main.class.getResourceAsStream("Archer3.png")));
-        ImageView barbarianImage=new ImageView(new Image(Main.class.getResourceAsStream("Barbarian.png")));
-        ImageView wizardImage=new ImageView(new Image(Main.class.getResourceAsStream("Wizard.png")));
-        ImageView giantImage=new ImageView(new Image(Main.class.getResourceAsStream("Giant.png")));
+        ImageView archerImage=new ImageView(new Image(Main.class.getResourceAsStream("ArcherIcon.jpeg")));
+        ImageView barbarianImage=new ImageView(new Image(Main.class.getResourceAsStream("BarbarianIcon.png")));
+        ImageView wizardImage=new ImageView(new Image(Main.class.getResourceAsStream("WizardIcon.jpeg")));
+        ImageView giantImage=new ImageView(new Image(Main.class.getResourceAsStream("GiantIcon.jpeg")));
 
-        archerImage.setLayoutY(622);
+        archerImage.setLayoutY(572);
         archerImage.setLayoutX(300);
-        archerImage.setFitHeight(50);
-        archerImage.setFitWidth(50);
+        archerImage.setFitHeight(70);
+        archerImage.setFitWidth(70);
 
-        barbarianImage.setLayoutY(622);
-        barbarianImage.setLayoutX(350);
-        barbarianImage.setFitHeight(50);
-        barbarianImage.setFitWidth(50);
+        barbarianImage.setLayoutY(572);
+        barbarianImage.setLayoutX(400);
+        barbarianImage.setFitHeight(70);
+        barbarianImage.setFitWidth(70);
 
-        wizardImage.setLayoutY(622);
-        wizardImage.setLayoutX(400);
-        wizardImage.setFitHeight(50);
-        wizardImage.setFitWidth(40);
+        wizardImage.setLayoutY(572);
+        wizardImage.setLayoutX(500);
+        wizardImage.setFitHeight(70);
+        wizardImage.setFitWidth(70);
 
-        giantImage.setLayoutY(622);
-        giantImage.setLayoutX(450);
-        giantImage.setFitHeight(50);
-        giantImage.setFitWidth(50);
+        giantImage.setLayoutY(572);
+        giantImage.setLayoutX(600);
+        giantImage.setFitHeight(70);
+        giantImage.setFitWidth(70);
 
         root.getChildren().addAll(back_btn,next_btn,archerImage,barbarianImage,wizardImage,giantImage);
+        Random rand=new Random();
+        archerImage.setOnMouseClicked(mouseEvent -> {
+            Archer archer=new Archer(rand.nextInt(150,600), rand.nextInt(150,400),false);
+            while (checkAll(player.getMap(),archer)){
+                archer=new Archer(rand.nextInt(150,600), rand.nextInt(150,400),false);
+            }
+            root.getChildren().add(archer.getView());
+            TroopThread thread=new TroopThread(player.getMap(),archer);
+            (thread).start();
+            threads.add(thread);
+        });
+        barbarianImage.setOnMouseClicked(mouseEvent -> {
+            Barbarian barbarian=new Barbarian(rand.nextInt(150,600), rand.nextInt(150,400) );
+            while (checkAll(player.getMap(),barbarian)){
+                barbarian=new Barbarian(rand.nextInt(150,600), rand.nextInt(150,400) );
+            }
+            root.getChildren().add(barbarian.getView());
+            TroopThread thread=new TroopThread(player.getMap(),barbarian);
+            (thread).start();
+            threads.add(thread);
+        });
+        wizardImage.setOnMouseClicked(mouseEvent -> {
+            Wizard wizard=new Wizard(rand.nextInt(150,600), rand.nextInt(150,400) );
+            while (checkAll(player.getMap(),wizard)){
+                wizard=new Wizard(rand.nextInt(150,600), rand.nextInt(150,400) );
+            }
+            root.getChildren().add(wizard.getView());
+            TroopThread thread=new TroopThread(player.getMap(),wizard);
+            (thread).start();
+            threads.add(thread);
+        });
+        giantImage.setOnMouseClicked(mouseEvent -> {
+            Giant giant=new Giant(rand.nextInt(150,600), rand.nextInt(150,400) );
+            while (checkAll(player.getMap(),giant)){
+                giant=new Giant(rand.nextInt(150,600), rand.nextInt(150,400) );
+            }
+            root.getChildren().add(giant.getView());
+            TroopThread thread=new TroopThread(player.getMap(),giant);
+            (thread).start();
+            threads.add(thread);
+        });
         stage.setScene(scene);
         return stage;
     }
     public static Stage getStage(){
         return stage;
+    }
+
+    public static AnchorPane getRoot() {
+        return root;
+    }
+    public static boolean checkCollision(Building building1,Troop troop) {
+        // Calculate the coordinates of the four corners of each square
+        int x1Left = building1.getX();
+        int x1Right = building1.getX() + 75;
+        int y1Top = building1.getY();
+        int y1Bottom = building1.getY() + 75;
+
+        int x2Left = troop.getX();
+        int x2Right = troop.getX() + 50;
+        int y2Top = troop.getY();
+        int y2Bottom = troop.getY() + 50;
+
+        // Check for collision by comparing the coordinates of the corners
+        if (x1Right >= x2Left &&
+                x1Left <= x2Right &&
+                y1Bottom >= y2Top &&
+                y1Top <= y2Bottom) {
+            return true; // Collision detected
+        }
+
+        return false; // No collision detected
+    }
+    public static boolean checkAll(Map map,Troop troop){
+        for(Building building: map.getBuildings()){
+            if(checkCollision(building,troop)){
+                return true;
+            }
+        }
+        return false;
     }
 }

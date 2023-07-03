@@ -79,6 +79,10 @@ public class Player {
     public Map getMap() {
         return map;
     }
+
+    public int getLosses() {
+        return losses;
+    }
     //    public boolean passwordMatches(String password) {
 //        return this.password.equals(password);
 //    }
