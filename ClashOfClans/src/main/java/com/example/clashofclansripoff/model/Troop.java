@@ -52,7 +52,7 @@ public abstract class Troop {
     }
 
     public void changeCurrentHP(int change) {
-        currentHP+=change;
+        currentHP-=change;
     }
     public void doDamage(Building building){
         building.changeCurrentHealth(dps);

@@ -7,7 +7,7 @@ import javafx.scene.image.ImageView;
 public class Wizard extends Troop{
     public Wizard(int x,int y){
         super(23,23,80,Type.Wizard,null,x,y);
-        ImageView view=new ImageView(new Image(Main.class.getResourceAsStream("Wizard.png")));
+        ImageView view=new ImageView(new Image(Main.class.getResourceAsStream("Wizard2.png")));
         view.setX(x);
         view.setY(y);
         view.setFitWidth(40);

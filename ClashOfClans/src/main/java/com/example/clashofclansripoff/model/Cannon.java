@@ -6,7 +6,7 @@ import javafx.scene.image.ImageView;
 
 public class Cannon extends Building{
     public Cannon(String ownerID,int x,int y)throws Exception{
-        super(Type.Cannon,88,ownerID, x, y,0,null);
+        super(Type.Cannon,88,ownerID, x, y,0,null,220);
         ImageView view=new ImageView(new Image(Main.class.getResourceAsStream("Cannon.png")));
         view.setFitHeight(75);
         view.setFitWidth(75);

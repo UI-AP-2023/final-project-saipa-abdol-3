@@ -85,6 +85,22 @@ public class DatabaseController {
         statement.execute(command);
         connection.close();
     }
+    public static void addToVictories()throws Exception{
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection connection = DriverManager.getConnection(url, username, password);
+        String command =String.format("UPDATE `players` SET `victories` = '%d' WHERE `players`.`username` = '%s';",(currentUser.getVictories()+1),currentUser.getUsername());
+        Statement statement = connection.prepareStatement(command);
+        statement.execute(command);
+        connection.close();
+    }
+    public static void addToLosses()throws Exception{
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection connection = DriverManager.getConnection(url, username, password);
+        String command =String.format("UPDATE `players` SET `losses` = '%d' WHERE `players`.`username` = '%s';",(currentUser.getLosses()+1),currentUser.getUsername());
+        Statement statement = connection.prepareStatement(command);
+        statement.execute(command);
+        connection.close();
+    }
 
     public static void addBuilding(Building building) throws Exception{
         Class.forName("com.mysql.cj.jdbc.Driver");

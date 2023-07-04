@@ -1,6 +1,7 @@
 package com.example.clashofclansripoff;
 
 import com.example.clashofclansripoff.Stages.AttackStage;
+import com.example.clashofclansripoff.Stages.ResultStage;
 import com.example.clashofclansripoff.controller.DatabaseController;
 import com.example.clashofclansripoff.model.Player;
 import javafx.application.Application;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 
 public class Main extends Application {
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("menu-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 900, 444);
         stage.setResizable(false);

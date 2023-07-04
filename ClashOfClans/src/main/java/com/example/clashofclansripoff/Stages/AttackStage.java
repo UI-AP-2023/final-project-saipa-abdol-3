@@ -1,6 +1,7 @@
 package com.example.clashofclansripoff.Stages;
 
 import com.example.clashofclansripoff.Main;
+import com.example.clashofclansripoff.controller.BuildingThread;
 import com.example.clashofclansripoff.controller.TroopThread;
 import com.example.clashofclansripoff.model.*;
 import javafx.fxml.FXMLLoader;
@@ -17,9 +18,9 @@ import java.util.Random;
 public class AttackStage {
     private static Stage stage;
     private static AnchorPane root;
-    private static ArrayList<TroopThread> threads;
+    private static int troopCount;
     public static Stage getAttackStage()throws Exception{
-        threads=new ArrayList<>();
+        troopCount=0;
         stage=new Stage();
         root=new AnchorPane();
         ImageView background=new ImageView(new Image(Main.class.getResourceAsStream("thumb.jpg")));
@@ -37,8 +38,10 @@ public class AttackStage {
 
         Button next_btn=new Button("Next");
         Button back_btn=new Button("Back");
+        Button surrender=new Button("Surrender");
 
         next_btn.setStyle("-fx-font-family: 'Arial Black';-fx-font-size: 18px;");
+        surrender.setStyle("-fx-font-family: 'Arial Black';-fx-font-size: 18px;");
 
         next_btn.setLayoutX(738);
         next_btn.setLayoutY(632);
@@ -54,6 +57,25 @@ public class AttackStage {
             }
         });
 
+        surrender.setOnMouseClicked(mouseEvent -> {
+            try {
+                stage.close();
+                ResultStage.getResultStage(!TroopThread.hasTownHall(player.getMap().getBuildings()),TroopThread.getPercentage(player.getMap())).show();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+        surrender.setLayoutX(738);
+        surrender.setLayoutY(532);
+        surrender.setPrefWidth(96);
+        surrender.setPrefHeight(40);
+//        for(Building building:player.getMap().getBuildings()){
+//            if(building instanceof Cannon||building instanceof ArcherTower){
+//                (new BuildingThread(player.getMap(),building)).start();
+//                System.out.println("thread");
+//            }
+//        }
+
         back_btn.setStyle("-fx-font-family: 'Arial Black';-fx-font-size: 18px;");
 
         back_btn.setPrefWidth(96);
@@ -64,8 +86,8 @@ public class AttackStage {
         back_btn.setOnMouseClicked(mouseEvent -> {
             stage.close();
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("menu-view.fxml"));
-                Scene scene1 = new Scene(fxmlLoader.load(), 900, 444);
+                FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("page-view.fxml"));
+                Scene scene1 = new Scene(fxmlLoader.load(), 899, 679);
                 stage.setResizable(false);
                 stage.setTitle("Clash of Clans");
                 stage.getIcons().add(new Image(Main.class.getResourceAsStream("icon.png")));
@@ -101,47 +123,63 @@ public class AttackStage {
         giantImage.setFitHeight(70);
         giantImage.setFitWidth(70);
 
-        root.getChildren().addAll(back_btn,next_btn,archerImage,barbarianImage,wizardImage,giantImage);
+        root.getChildren().addAll(back_btn,next_btn,surrender,archerImage,barbarianImage,wizardImage,giantImage);
         Random rand=new Random();
         archerImage.setOnMouseClicked(mouseEvent -> {
-            Archer archer=new Archer(rand.nextInt(150,600), rand.nextInt(150,400),false);
-            while (checkAll(player.getMap(),archer)){
-                archer=new Archer(rand.nextInt(150,600), rand.nextInt(150,400),false);
+            if(troopCount++<13) {
+                Archer archer = new Archer(rand.nextInt(150, 600), rand.nextInt(150, 400), false);
+                while (checkAll(player.getMap(), archer)) {
+                    archer = new Archer(rand.nextInt(150, 600), rand.nextInt(150, 400), false);
+                }
+                root.getChildren().add(archer.getView());
+                TroopThread thread = new TroopThread(player.getMap(), archer);
+                player.getMap().getTroops().add(archer);
+                (thread).start();
+            }else {
+                System.out.println("Exceeding troop limit");
             }
-            root.getChildren().add(archer.getView());
-            TroopThread thread=new TroopThread(player.getMap(),archer);
-            (thread).start();
-            threads.add(thread);
         });
         barbarianImage.setOnMouseClicked(mouseEvent -> {
-            Barbarian barbarian=new Barbarian(rand.nextInt(150,600), rand.nextInt(150,400) );
-            while (checkAll(player.getMap(),barbarian)){
-                barbarian=new Barbarian(rand.nextInt(150,600), rand.nextInt(150,400) );
+            if(troopCount++<13) {
+                Barbarian barbarian = new Barbarian(rand.nextInt(150, 600), rand.nextInt(150, 400));
+                while (checkAll(player.getMap(), barbarian)) {
+                    barbarian = new Barbarian(rand.nextInt(150, 600), rand.nextInt(150, 400));
+                }
+                root.getChildren().add(barbarian.getView());
+                TroopThread thread = new TroopThread(player.getMap(), barbarian);
+                player.getMap().getTroops().add(barbarian);
+                (thread).start();
+            }else {
+                System.out.println("Exceeding troop limit");
             }
-            root.getChildren().add(barbarian.getView());
-            TroopThread thread=new TroopThread(player.getMap(),barbarian);
-            (thread).start();
-            threads.add(thread);
         });
         wizardImage.setOnMouseClicked(mouseEvent -> {
-            Wizard wizard=new Wizard(rand.nextInt(150,600), rand.nextInt(150,400) );
-            while (checkAll(player.getMap(),wizard)){
-                wizard=new Wizard(rand.nextInt(150,600), rand.nextInt(150,400) );
+            if(troopCount++<13) {
+                Wizard wizard = new Wizard(rand.nextInt(150, 600), rand.nextInt(150, 400));
+                while (checkAll(player.getMap(), wizard)) {
+                    wizard = new Wizard(rand.nextInt(150, 600), rand.nextInt(150, 400));
+                }
+                root.getChildren().add(wizard.getView());
+                TroopThread thread = new TroopThread(player.getMap(), wizard);
+                player.getMap().getTroops().add(wizard);
+                (thread).start();
+            }else {
+                System.out.println("Exceeding troop limit");
             }
-            root.getChildren().add(wizard.getView());
-            TroopThread thread=new TroopThread(player.getMap(),wizard);
-            (thread).start();
-            threads.add(thread);
         });
         giantImage.setOnMouseClicked(mouseEvent -> {
-            Giant giant=new Giant(rand.nextInt(150,600), rand.nextInt(150,400) );
-            while (checkAll(player.getMap(),giant)){
-                giant=new Giant(rand.nextInt(150,600), rand.nextInt(150,400) );
+            if(troopCount++<13) {
+                Giant giant = new Giant(rand.nextInt(150, 600), rand.nextInt(150, 400));
+                while (checkAll(player.getMap(), giant)) {
+                    giant = new Giant(rand.nextInt(150, 600), rand.nextInt(150, 400));
+                }
+                root.getChildren().add(giant.getView());
+                TroopThread thread = new TroopThread(player.getMap(), giant);
+                player.getMap().getTroops().add(giant);
+                (thread).start();
+            }else {
+                System.out.println("Exceeding troop limit");
             }
-            root.getChildren().add(giant.getView());
-            TroopThread thread=new TroopThread(player.getMap(),giant);
-            (thread).start();
-            threads.add(thread);
         });
         stage.setScene(scene);
         return stage;
@@ -182,5 +220,9 @@ public class AttackStage {
             }
         }
         return false;
+    }
+
+    public static int getTroopCount() {
+        return troopCount;
     }
 }

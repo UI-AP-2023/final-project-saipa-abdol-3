@@ -15,10 +15,11 @@ public abstract class Building {
     private int x;
     private int y;
     private int level;
+    private int range;
     private static AtomicInteger buildingCount;
     private String username;
     private ImageView view;
-    public Building(Type type, int health, String username, int x, int y,int level,ImageView view) throws Exception{
+    public Building(Type type, int health, String username, int x, int y,int level,ImageView view,int range) throws Exception{
         buildingCount=new AtomicInteger(DatabaseController.getMaxID());
         this.health=health;
         currentHealth=health;
@@ -28,6 +29,7 @@ public abstract class Building {
         this.x=x;
         this.y=y;
         this.level=level;
+        this.range=range;
     }
 
     public int getHealth() {
@@ -76,5 +78,12 @@ public abstract class Building {
 
     public static AtomicInteger getBuildingCount() {
         return buildingCount;
+    }
+    public void doDamage(Troop troop){
+        troop.changeCurrentHP(10);
+    }
+
+    public int getRange() {
+        return range;
     }
 }

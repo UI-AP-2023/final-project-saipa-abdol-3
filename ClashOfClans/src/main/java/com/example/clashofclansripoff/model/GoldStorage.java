@@ -6,7 +6,7 @@ import javafx.scene.image.ImageView;
 
 public class GoldStorage extends Building{
     public GoldStorage(String ownerID,int x,int y)throws Exception{
-        super(Type.Gold,100,ownerID , x, y,0,null);
+        super(Type.Gold,100,ownerID , x, y,0,null,0);
         ImageView view=new ImageView(new Image(Main.class.getResourceAsStream("GoldStorage.png")));
         view.setFitHeight(75);
         view.setFitWidth(75);

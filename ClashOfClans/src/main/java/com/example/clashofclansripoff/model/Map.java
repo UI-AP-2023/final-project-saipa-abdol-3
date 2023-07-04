@@ -9,6 +9,7 @@ public class Map {
     private ArrayList<Building> buildings;
     private ArrayList<Troop> troops;
     private String username;
+    private int buildingCount;
 
     public Map(boolean fromDatabase,String username)throws Exception{
         if (!fromDatabase) {
@@ -36,13 +37,14 @@ public class Map {
             buildings.add(townHall);
             DatabaseController.addBuilding(archerTower);
             buildings.add(archerTower);
+            troops = new ArrayList<>();
             DatabaseController.addBuilding(elixirStorage);
             buildings.add(elixirStorage);
             DatabaseController.addBuilding(goldStorage);
             buildings.add(goldStorage);
             DatabaseController.addBuilding(cannon);
             buildings.add(cannon);
-            troops = new ArrayList<>();
+            buildingCount= buildings.size();
         } else {
             buildings = new ArrayList<>();
             troops = new ArrayList<>();
@@ -77,5 +79,9 @@ public class Map {
         }
 
         return false; // No collision detected
+    }
+
+    public int getBuildingCount() {
+        return buildingCount;
     }
 }

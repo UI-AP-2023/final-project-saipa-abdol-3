@@ -6,8 +6,8 @@ import javafx.scene.image.ImageView;
 
 public class Giant extends Troop{
     public Giant(int x,int y){
-        super(185,12,20,Type.Giant,null,x,y);
-        ImageView view=new ImageView(new Image(Main.class.getResourceAsStream("Giant.png")));
+        super(80,12,20,Type.Giant,null,x,y);
+        ImageView view=new ImageView(new Image(Main.class.getResourceAsStream("Giant2.png")));
         view.setX(x);
         view.setY(y);
         view.setFitWidth(50);

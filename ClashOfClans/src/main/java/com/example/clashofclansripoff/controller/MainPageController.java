@@ -49,12 +49,6 @@ public class MainPageController implements Initializable {
                 root.getChildren().add(archer.getView());
             }
         }
-//        Barbarian barbarian=new Barbarian(500,400);
-//        root.getChildren().add(barbarian.getView());
-//        Giant giant=new Giant(600,300);
-//        root.getChildren().add(giant.getView());
-//        Wizard wizard=new Wizard(300,200);
-//        root.getChildren().add(wizard.getView());
     }
 
     public AnchorPane getRoot() {

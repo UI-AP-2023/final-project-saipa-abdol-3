@@ -8,7 +8,7 @@ public class TownHall extends Building {
     private int level;
     private Image image;
     public TownHall(String ownerID,int x, int y, int level) throws Exception{
-        super(Type.TownHall, 300, ownerID, x, y,level,null);
+        super(Type.TownHall, 300, ownerID, x, y,level,null,0);
         this.level = level;
         assignImage(level);
         ImageView view=new ImageView(image);
@@ -46,52 +46,52 @@ public class TownHall extends Building {
             }
             break;
             case 6: {
-                setHealth(280);
+                setHealth(250);
                 setImage(new Image(Main.class.getResourceAsStream("Town6.png")));
             }
             break;
             case 7: {
-                setHealth(330);
+                setHealth(270);
                 setImage(new Image(Main.class.getResourceAsStream("Town7.png")));
             }
             break;
             case 8: {
-                setHealth(390);
+                setHealth(290);
                 setImage(new Image(Main.class.getResourceAsStream("Town8.png")));
             }
             break;
             case 9: {
-                setHealth(460);
+                setHealth(310);
                 setImage(new Image(Main.class.getResourceAsStream("Town9.png")));
             }
             break;
             case 10: {
-                setHealth(550);
+                setHealth(340);
                 setImage(new Image(Main.class.getResourceAsStream("Town10.png")));
             }
             break;
             case 11: {
-                setHealth(680);
+                setHealth(370);
                 setImage(new Image(Main.class.getResourceAsStream("Town11.png")));
             }
             break;
             case 12: {
-                setHealth(750);
+                setHealth(400);
                 setImage(new Image(Main.class.getResourceAsStream("Town12.png")));
             }
             break;
             case 13: {
-                setHealth(820);
+                setHealth(420);
                 setImage(new Image(Main.class.getResourceAsStream("Town13.png")));
             }
             break;
             case 14: {
-                setHealth(890);
+                setHealth(450);
                 setImage(new Image(Main.class.getResourceAsStream("Town14.png")));
             }
             break;
             case 15: {
-                setHealth(960);
+                setHealth(500);
                 setImage(new Image(Main.class.getResourceAsStream("Town15.png")));
             }
             break;
